@@ -105,7 +105,11 @@
      <string notr="true"/>
     </property>
     <property name="text">
-     <string>+</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../icons/211878_plus_icon.ico</normaloff>../icons/211878_plus_icon.ico</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="find_character">
@@ -233,6 +237,38 @@
     </property>
     <property name="text">
      <string>Персонажи</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="reload_table">
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>450</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="mouseTracking">
+     <bool>false</bool>
+    </property>
+    <property name="toolTip">
+     <string>Перезагрузить таблицу</string>
+    </property>
+    <property name="toolTipDuration">
+     <number>-1</number>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../icons/326679_refresh_reload_icon.ico</normaloff>../icons/326679_refresh_reload_icon.ico</iconset>
     </property>
    </widget>
   </widget>

@@ -1,6 +1,8 @@
 * { background-color: rgb(255, 231, 94)  }
 
-#label { color: red}
+#label { 
+    color: red;
+}
 
 #add_tale {
     border-radius:20px;
@@ -8,6 +10,13 @@
     color: green;
     font-size: 25px;
     text-align: center
+}
+
+#reload_table {
+    border-radius:20px;
+    background-color: white;
+    color: green;
+    font-size: 25px;
 }
 
 #find_character {
@@ -34,3 +43,24 @@
 QTableWidgetItem {
     background-color:rgb(255, 231, 94);
 }
+
+#author {
+    color: rgb(10, 9, 9);
+    font-style: italic;
+}
+#title {
+    font-size: 25px;
+    color: red;
+}
+
+#text_description {
+    font-size: 12px;
+    border: 0px;
+    padding: 0;
+    
+}
+
+#characters {
+    font-size: 12px;
+}
+

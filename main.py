@@ -32,6 +32,7 @@ class MainPage(QMainWindow, design_main_page.Ui_MainWindow):
         self.radioButton_2.toggled.connect(self.change_table)
         self.more_info.clicked.connect(self.ger_more_info)
         self.tableWidget.cellClicked.connect(self.select_row)
+        self.reload_table.clicked.connect(self.change_table)
 
     def select_row(self):
         self.tableWidget.clearSelection()
@@ -40,12 +41,10 @@ class MainPage(QMainWindow, design_main_page.Ui_MainWindow):
         self.tableWidget.selectRow(row)
 
     def change_table(self):
-        btn = self.sender()
-        if btn.isChecked():
-            if btn.text() == 'Персонажи':
-                self.update_characters_table()
-            else:
-                self.update_tales_table()
+        if self.radioButton_2.isChecked():
+            self.update_characters_table()
+        else:
+            self.update_tales_table()
 
     def update_characters_table(self):
         cur = self.con.cursor()
@@ -121,9 +120,19 @@ class MainPage(QMainWindow, design_main_page.Ui_MainWindow):
                 self.statusbar.showMessage('Персонажа с таким именем не найдено')
 
     def ger_more_info(self):
-        select_tale = self.tableWidget.selectedItems()
-        self.second_form = InfoPage(self, select_tale[0].text())
-        self.second_form.show()
+        try:
+            if self.radioButton_2.isChecked():
+                raise NotFoundResult
+            select_tale = self.tableWidget.selectedItems()
+            if select_tale:
+                self.second_form = InfoPage(self, select_tale[0].text())
+                self.second_form.show()
+            else:
+                raise VoidLineEdit
+        except NotFoundResult:
+            self.statusbar.showMessage('Подробная информация есть только у сказок')
+        except VoidLineEdit:
+            self.statusbar.showMessage('Выберете сказку из таблицы')
 
 
 

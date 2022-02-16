@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>428</width>
-    <height>641</height>
+    <height>686</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <x>30</x>
      <y>20</y>
      <width>371</width>
-     <height>21</height>
+     <height>41</height>
     </rect>
    </property>
    <property name="text">
@@ -30,7 +30,7 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>50</y>
+     <y>70</y>
      <width>171</width>
      <height>21</height>
     </rect>
@@ -43,26 +43,13 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>370</y>
+     <y>380</y>
      <width>371</width>
      <height>211</height>
     </rect>
    </property>
    <property name="text">
     <string>Image</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="characters">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>70</y>
-     <width>381</width>
-     <height>151</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>characters</string>
    </property>
   </widget>
   <widget class="QTextBrowser" name="text_description">
@@ -72,10 +59,33 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>260</y>
+     <y>250</y>
      <width>361</width>
      <height>131</height>
     </rect>
+   </property>
+  </widget>
+  <widget class="QTextBrowser" name="characters">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>140</y>
+     <width>361</width>
+     <height>101</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="delete_btn">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>650</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>УДАЛИТЬ</string>
    </property>
   </widget>
  </widget>

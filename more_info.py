@@ -26,7 +26,7 @@ class InfoPage(QWidget, Ui_Form):
         self.text_description.setText(result[3])
         characters = ', '.join(elem[0] for elem in characters)
         self.characters.setText(characters)
-        image =  Image.open(BytesIO(result[2]))
+        image =  Image.open(result[2])
         image = image.resize((300, 300))
         image.save('data/image/exit_picture.png')
         self.pixmap = QPixmap('data/image/exit_picture.png')
@@ -46,6 +46,6 @@ sys.excepthook = exception_hook
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    ex = InfoPage()
+    ex = InfoPage(1)
     ex.show()
     sys.exit(app.exec_())

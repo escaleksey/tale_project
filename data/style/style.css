@@ -64,3 +64,13 @@ QTableWidgetItem {
     font-size: 12px;
 }
 
+#delete_btn {
+    border: 1px solid black;
+    border-radius: 6px;
+}
+
+#characters{
+    font-size: 12px;
+    border: 0px;
+    padding: 0;
+}

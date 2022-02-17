@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QStyleFactory, Q
 from PyQt5.QtWidgets import QTableWidgetItem
 import design_main_page
 from more_info import InfoPage
+from add_tale import AddTalePage
 import sys
 import sqlite3
 
@@ -33,6 +34,7 @@ class MainPage(QMainWindow, design_main_page.Ui_MainWindow):
         self.more_info.clicked.connect(self.ger_more_info)
         self.tableWidget.cellClicked.connect(self.select_row)
         self.reload_table.clicked.connect(self.change_table)
+        self.add_tale.clicked.connect(self.add_tale_func)
 
     def select_row(self):
         self.tableWidget.clearSelection()
@@ -133,6 +135,10 @@ class MainPage(QMainWindow, design_main_page.Ui_MainWindow):
             self.statusbar.showMessage('Подробная информация есть только у сказок')
         except VoidLineEdit:
             self.statusbar.showMessage('Выберете сказку из таблицы')
+
+    def add_tale_func(self):
+        self.second_form = AddTalePage()
+        self.second_form.show()
 
 
 

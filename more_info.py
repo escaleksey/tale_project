@@ -1,5 +1,5 @@
 from design_more_info_page import Ui_Form
-from PyQt5.QtWidgets import QWidget, QApplication
+from PyQt5.QtWidgets import QWidget, QApplication, QMessageBox
 from io import BytesIO
 from PyQt5.QtGui import QPixmap
 import sys
@@ -21,9 +21,11 @@ class InfoPage(QWidget, Ui_Form):
                                  FROM tale WHERE id='{tale_id}'""").fetchone()
         characters = cur.execute(f"""SELECT characters.name
                                  FROM characters WHERE tale='{tale_id}'""").fetchall()
-        self.title.setText(result[0])
-        self.author.setText(result[1])
-        self.text_description.setText(result[3])
+        self.tale_id = tale_id
+        print(tale_id)
+        self.title.setText(str(result[0]))
+        self.author.setText(str(result[1]))
+        self.text_description.setText(str(result[3]))
         characters = ', '.join(elem[0] for elem in characters)
         self.characters.setText(characters)
         image =  Image.open(result[2])
@@ -31,6 +33,20 @@ class InfoPage(QWidget, Ui_Form):
         image.save('data/image/exit_picture.png')
         self.pixmap = QPixmap('data/image/exit_picture.png')
         self.image.setPixmap(self.pixmap)
+        self.delete_btn.clicked.connect(self.delete)
+
+    def delete(self):
+        valid = QMessageBox.question(self, '', f"Вы действительно хотите удалить это растение из базы данных?",
+                                     QMessageBox.Yes, QMessageBox.No)
+
+        if valid == QMessageBox.Yes:
+            cur = self.con.cursor()
+            cur.execute(f"DELETE FROM tale WHERE id = {self.tale_id}")
+            self.con.commit()
+            cur.execute(f"DELETE FROM characters WHERE tale = {self.tale_id}")
+            self.con.commit()
+            self.con.close()
+            self.hide()
 
 
 sys.__excepthook__ = sys.__excepthook__

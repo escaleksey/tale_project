@@ -1,6 +1,5 @@
 from design_more_info_page import Ui_Form
 from PyQt5.QtWidgets import QWidget, QApplication, QMessageBox
-from io import BytesIO
 from PyQt5.QtGui import QPixmap
 import sys
 import sqlite3
@@ -28,11 +27,12 @@ class InfoPage(QWidget, Ui_Form):
         self.text_description.setText(str(result[3]))
         characters = ', '.join(elem[0] for elem in characters)
         self.characters.setText(characters)
-        image =  Image.open(result[2])
-        image = image.resize((300, 300))
-        image.save('data/image/exit_picture.png')
-        self.pixmap = QPixmap('data/image/exit_picture.png')
-        self.image.setPixmap(self.pixmap)
+        if result[2]:
+            image =  Image.open(result[2])
+            image = image.resize((300, 300))
+            image.save('data/image/exit_picture.png')
+            self.pixmap = QPixmap('data/image/exit_picture.png')
+            self.image.setPixmap(self.pixmap)
         self.delete_btn.clicked.connect(self.delete)
 
     def delete(self):

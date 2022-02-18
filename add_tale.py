@@ -1,9 +1,9 @@
 from design_add_tale_page import Ui_Form
-from PyQt5.QtWidgets import QWidget, QApplication, QFileDialog, QDialogButtonBox
+from PyQt5.QtWidgets import QWidget, QApplication, QFileDialog
 from PyQt5.QtGui import QPixmap
 import sqlite3
 import sys
-from PIL import Image, ImageQt
+from PIL import Image
 
 
 class VoidNameEdit(Exception):
@@ -26,10 +26,13 @@ class AddTalePage(QWidget, Ui_Form):
         self.initUi()
 
     def initUi(self):
+        cur = self.con.cursor()
         self.select_picture.clicked.connect(self.select_image)
         self.cancel.clicked.connect(self.cancel_func)
         self.ok_btn.clicked.connect(self.ok_pressed)
-        self.image_path = 'data/image/void.jpg'
+        self.image_path = ''
+        self.ids = cur.execute("""SELECT id FROM tale""").fetchall()
+        self.ids = list(map(lambda x: x[0], self.ids))
 
     def cancel_func(self):
         self.hide()
@@ -48,7 +51,7 @@ class AddTalePage(QWidget, Ui_Form):
         cur = self.con.cursor()
         name = self.name.text()
         description = self.description.toPlainText()
-        characters = self.characters.toPlainText()
+        characters = self.characters_text_edit.toPlainText()
         author = self.author.text()
         try:
             if not name:
@@ -60,8 +63,8 @@ class AddTalePage(QWidget, Ui_Form):
             if not author:
                 author = '-'
             characters = [elem.strip() for elem in characters.split(',')]
-            cur.execute(f"INSERT INTO tale(title, author, picture, description)"
-                        f" VALUES('{str(name)}', '{str(author)}',"
+            cur.execute(f"INSERT INTO tale(id, title, author, picture, description)"
+                        f" VALUES({self.ids[-1] + 1}, '{str(name)}', '{str(author)}',"
                         f" '{str(self.image_path)}', '{str(description)}')")
             self.con.commit()
             id_tale = cur.execute(f"""SELECT id FROM tale WHERE title='{name}'""").fetchone()
@@ -79,9 +82,6 @@ class AddTalePage(QWidget, Ui_Form):
             self.statusbar.showMessage('Введите описание сказки')
         except VoidCharacterEdit:
             self.statusbar.showMessage('Введите главных героев сказки')
-
-
-
 
 
 sys.__excepthook__ = sys.__excepthook__

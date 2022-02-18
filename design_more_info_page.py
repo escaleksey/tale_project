@@ -46,5 +46,4 @@ class Ui_Form(object):
         Form.setWindowTitle(_translate("Form", "Form"))
         self.title.setText(_translate("Form", "Title"))
         self.author.setText(_translate("Form", "author"))
-        self.image.setText(_translate("Form", "Image"))
         self.delete_btn.setText(_translate("Form", "УДАЛИТЬ"))

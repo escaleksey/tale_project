@@ -1,6 +1,5 @@
-from PyQt5 import QtGui, QtCore
-from PyQt5 import uic
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QStyleFactory, QAbstractItemView
+from PyQt5 import QtGui
+from PyQt5.QtWidgets import QApplication, QMainWindow, QStyleFactory
 from PyQt5.QtWidgets import QTableWidgetItem
 import design_main_page
 from more_info import InfoPage
@@ -38,11 +37,10 @@ class MainPage(QMainWindow, design_main_page.Ui_MainWindow):
 
     def select_row(self):
         self.tableWidget.clearSelection()
-        #self.tableWidget.setSelectionMode(QAbstractItemView.MultiSelection)
         row = self.tableWidget.currentRow()
         self.tableWidget.selectRow(row)
 
-    def change_table(self):
+    def change_table(self):  # Изменение таблицы при нажатии на радиокнопку
         if self.radioButton_2.isChecked():
             self.update_characters_table()
         else:
@@ -68,7 +66,7 @@ class MainPage(QMainWindow, design_main_page.Ui_MainWindow):
     def update_tales_table(self):
         cur = self.con.cursor()
         result = cur.execute(f"SELECT tale.id, tale.title, tale.author, tale.description"
-                                  f" FROM tale").fetchall()
+                             f" FROM tale").fetchall()
         self.tableWidget.setRowCount(len(result))
         self.tableWidget.setColumnCount(len(result[0]))
         self.headers = ['id', 'Название', 'Автор', 'Описание']
@@ -85,13 +83,13 @@ class MainPage(QMainWindow, design_main_page.Ui_MainWindow):
         btn = self.sender()
         cur = self.con.cursor()
         try:
-            request = self.lineEdit.text().lower().capitalize()
+            request = self.lineEdit.text() # Получаем запрос из поисковой строки
             if not request:
                 raise VoidLineEdit
             if btn.objectName() == 'find_tale':
                 self.update_tales_table()
                 result = cur.execute(f"SELECT tale.id, tale.title, tale.author, tale.description"
-                                      f" FROM tale WHERE tale.title = '{request}'").fetchall()
+                                     f" FROM tale WHERE tale.title = '{request}'").fetchall()
             else:
                 self.update_characters_table()
                 result = cur.execute(f"SELECT characters.id, characters.name, tale.title"
@@ -141,7 +139,6 @@ class MainPage(QMainWindow, design_main_page.Ui_MainWindow):
         self.second_form.show()
 
 
-
 sys.__excepthook__ = sys.__excepthook__
 
 
@@ -151,7 +148,6 @@ def exception_hook(exctype, value, traceback):
 
 
 sys.excepthook = exception_hook
-
 
 
 if __name__ == '__main__':

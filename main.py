@@ -1,9 +1,9 @@
 from PyQt5 import QtGui
 from PyQt5.QtWidgets import QApplication, QMainWindow, QStyleFactory
 from PyQt5.QtWidgets import QTableWidgetItem
-import design_main_page
-from more_info import InfoPage
-from add_tale import AddTalePage
+from data.design.design_main_page import Ui_MainWindow
+from utils.more_info import InfoPage
+from utils.add_tale import AddTalePage
 import sys
 import sqlite3
 
@@ -16,7 +16,7 @@ class VoidLineEdit(Exception):
     pass
 
 
-class MainPage(QMainWindow, design_main_page.Ui_MainWindow):
+class MainPage(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
@@ -37,7 +37,7 @@ class MainPage(QMainWindow, design_main_page.Ui_MainWindow):
 
     def select_row(self):
         self.tableWidget.clearSelection()
-        row = self.tableWidget.currentRow()
+        row = self.table.currentRow()
         self.tableWidget.selectRow(row)
 
     def change_table(self):  # Изменение таблицы при нажатии на радиокнопку
@@ -156,3 +156,5 @@ if __name__ == '__main__':
     ex = MainPage()
     ex.show()
     sys.exit(app.exec_())
+
+
